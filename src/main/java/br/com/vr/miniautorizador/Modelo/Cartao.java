@@ -13,9 +13,9 @@ public class Cartao {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String numero;
+	private String numeroCartao;
 	
-	private BigDecimal saldo;
+	private BigDecimal saldo = new BigDecimal(500);
 	
 	private String senha;
 
@@ -52,12 +52,12 @@ public class Cartao {
 		this.id = id;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getNumeroCartao() {
+		return numeroCartao;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setNumeroCartao(String numeroCartao) {
+		this.numeroCartao = numeroCartao;
 	}
 
 	public BigDecimal getSaldo() {
