@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +41,16 @@ public class CartoesController {
 	@Transactional
 	public ResponseEntity<CartaoDto> cadastrar(@RequestBody @Validated CartaoForm form, UriComponentsBuilder uriBuilder) {
 		Cartao cartao = form.converter();
-		cartaoRepository.save(cartao);
+		Optional<Cartao> cartaoRetorno = cartaoRepository.findByNumeroCartao(cartao.getNumeroCartao());
 		
+		if (cartaoRetorno.isPresent()) {
+			return ResponseEntity.unprocessableEntity().body(new CartaoDto(cartao));
+		}
+		
+		cartaoRepository.save(cartao);
 		URI uri = uriBuilder.path("/cartoes/{id}").buildAndExpand(cartao.getId()).toUri();
 		return ResponseEntity.created(uri).body(new CartaoDto(cartao));
+		
 	}
 	
 	@GetMapping("/{numeroCartao}")
