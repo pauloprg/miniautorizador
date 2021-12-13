@@ -3,7 +3,7 @@ package br.com.vr.miniautorizador.controller.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.vr.miniautorizador.Modelo.Cartao;
+import br.com.vr.miniautorizador.modelo.Cartao;
 
 public class CartaoDto {
 	

@@ -1,10 +1,16 @@
 package br.com.vr.miniautorizador.controller.form;
 
-import br.com.vr.miniautorizador.Modelo.Cartao;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import br.com.vr.miniautorizador.modelo.Cartao;
 
 public class CartaoForm {
 
+	@NotNull @NotEmpty
 	private String numeroCartao;
+	
+	@NotNull @NotEmpty
 	private String senha;
 	
 	public String getNumeroCartao() {

@@ -1,4 +1,4 @@
-package br.com.vr.miniautorizador.Modelo;
+package br.com.vr.miniautorizador.modelo;
 
 import java.math.BigDecimal;
 

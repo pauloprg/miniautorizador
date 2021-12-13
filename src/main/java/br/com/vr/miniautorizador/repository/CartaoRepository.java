@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.vr.miniautorizador.Modelo.Cartao;
+import br.com.vr.miniautorizador.modelo.Cartao;
 
 public interface CartaoRepository extends JpaRepository<Cartao, Long>{
 
