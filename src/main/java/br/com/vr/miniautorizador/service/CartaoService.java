@@ -1,18 +1,19 @@
 package br.com.vr.miniautorizador.service;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.vr.miniautorizador.controller.dto.CartaoDto;
-import br.com.vr.miniautorizador.controller.form.CartaoForm;
+import br.com.vr.miniautorizador.exception.CartaoExistenteException;
+import br.com.vr.miniautorizador.exception.CartaoInexistenteException;
 import br.com.vr.miniautorizador.modelo.Cartao;
 import br.com.vr.miniautorizador.repository.CartaoRepository;
+
 
 @Service
 public class CartaoService {
@@ -20,18 +21,10 @@ public class CartaoService {
 	@Autowired
 	private CartaoRepository cartaoRepository;
 	
-	public ResponseEntity<CartaoDto> cadastrar(CartaoForm form, UriComponentsBuilder uriBuilder) {
-		Cartao cartao = form.converter();
-		Optional<Cartao> cartaoRetorno = cartaoRepository.findByNumeroCartao(cartao.getNumeroCartao());
-		
-		if (cartaoRetorno.isPresent()) {
-			return ResponseEntity.unprocessableEntity().body(new CartaoDto(cartao));
-		}
-		
-		cartaoRepository.save(cartao);
-		URI uri = uriBuilder.path("/cartoes/{id}").buildAndExpand(cartao.getId()).toUri();
-		return ResponseEntity.created(uri).body(new CartaoDto(cartao));
-		
+	@Transactional
+	public void cadastrar(Cartao cartao) {
+		Optional<Cartao> cartaoOptional = cartaoRepository.findByNumeroCartao(cartao.getNumeroCartao());
+		cartaoOptional.ifPresentOrElse((value) -> {throw new CartaoExistenteException();}, () -> cartaoRepository.save(cartao));
 	}
 
 	public List<CartaoDto> listar() {
@@ -39,14 +32,9 @@ public class CartaoService {
 		return CartaoDto.converter(cartoes);
 	}
 
-	public ResponseEntity<String> obterSaldo(String numeroCartao) {
+	public String obterSaldo(String numeroCartao) {
 		Optional<Cartao> cartao = cartaoRepository.findByNumeroCartao(numeroCartao);
-		
-		if (cartao.isPresent()) {
-			return ResponseEntity.ok(cartao.get().getSaldo().toString());
-		}
-		
-		return ResponseEntity.notFound().build();
+		return cartao.orElseThrow(() -> new CartaoInexistenteException()).getSaldo().toString();
 	}
 
 }
