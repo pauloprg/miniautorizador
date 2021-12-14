@@ -36,5 +36,4 @@ public class CartaoService {
 		Optional<Cartao> cartao = cartaoRepository.findByNumeroCartao(numeroCartao);
 		return cartao.orElseThrow(() -> new CartaoInexistenteException()).getSaldo().toString();
 	}
-
 }

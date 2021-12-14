@@ -28,7 +28,6 @@ public class CartoesController {
 	@Autowired
 	private CartaoService cartaoService;
 	
-	
 	@GetMapping
 	public List<CartaoDto> lista() {
 		return cartaoService.listar();
@@ -37,7 +36,6 @@ public class CartoesController {
 	@PostMapping
 	public ResponseEntity<CartaoDto> cadastrar(@RequestBody @Validated CartaoForm form, UriComponentsBuilder uriBuilder){
 		Cartao cartao = form.converter();
-		
 		try {
 			cartaoService.cadastrar(cartao); 
 			URI uri = uriBuilder.path("/cartoes/{numeroCartao}").buildAndExpand(cartao.getNumeroCartao()).toUri();
@@ -46,19 +44,15 @@ public class CartoesController {
 		} catch (CartaoExistenteException e) {
 			return ResponseEntity.unprocessableEntity().body(new CartaoDto(cartao));
 		}
-		
-		 
 	}
 	
 	@GetMapping("/{numeroCartao}")
 	public ResponseEntity<String> obterSaldo(@PathVariable String numeroCartao) {
-		
 		try {
 			return ResponseEntity.ok(cartaoService.obterSaldo(numeroCartao));
 			
 		} catch (CartaoInexistenteException e) {
 			return ResponseEntity.notFound().build();
 		}
-		
 	}
 }
