@@ -16,7 +16,7 @@ import br.com.vr.miniautorizador.modelo.Cartao;
 import br.com.vr.miniautorizador.repository.CartaoRepository;
 
 @Service
-public class TransacaoService {
+public class TransacoesService {
 
 	@Autowired
 	private CartaoRepository cartaoRepository;

@@ -13,14 +13,14 @@ import br.com.vr.miniautorizador.controller.form.TransacaoForm;
 import br.com.vr.miniautorizador.exception.CartaoInexistenteException;
 import br.com.vr.miniautorizador.exception.SaldoInsuficienteException;
 import br.com.vr.miniautorizador.exception.SenhaInvalidaException;
-import br.com.vr.miniautorizador.service.TransacaoService;
+import br.com.vr.miniautorizador.service.TransacoesService;
 
 @RestController
 @RequestMapping("/transacoes")
 public class TransacoesController {
 
 	@Autowired
-	private TransacaoService transacaoService;
+	private TransacoesService transacaoService;
 	
 	@PostMapping
 	public ResponseEntity<String> transacao(@RequestBody @Validated TransacaoForm form) {

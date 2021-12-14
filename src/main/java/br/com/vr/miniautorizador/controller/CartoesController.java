@@ -19,14 +19,14 @@ import br.com.vr.miniautorizador.controller.form.CartaoForm;
 import br.com.vr.miniautorizador.exception.CartaoExistenteException;
 import br.com.vr.miniautorizador.exception.CartaoInexistenteException;
 import br.com.vr.miniautorizador.modelo.Cartao;
-import br.com.vr.miniautorizador.service.CartaoService;
+import br.com.vr.miniautorizador.service.CartoesService;
 
 @RestController
 @RequestMapping("/cartoes")
 public class CartoesController {
 
 	@Autowired
-	private CartaoService cartaoService;
+	private CartoesService cartaoService;
 	
 	@GetMapping
 	public List<CartaoDto> lista() {
