@@ -14,6 +14,7 @@ import br.com.vr.miniautorizador.exception.CartaoInexistenteException;
 import br.com.vr.miniautorizador.exception.SaldoInsuficienteException;
 import br.com.vr.miniautorizador.exception.SenhaInvalidaException;
 import br.com.vr.miniautorizador.service.TransacoesService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/transacoes")
@@ -23,6 +24,7 @@ public class TransacoesController {
 	private TransacoesService transacaoService;
 	
 	@PostMapping
+	@ApiOperation(value="Realizar uma transação em um cartão")
 	public ResponseEntity<String> transacao(@RequestBody @Validated TransacaoForm form) {
 		try {
 			transacaoService.transacao(form);

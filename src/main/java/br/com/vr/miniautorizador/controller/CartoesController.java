@@ -20,6 +20,7 @@ import br.com.vr.miniautorizador.exception.CartaoExistenteException;
 import br.com.vr.miniautorizador.exception.CartaoInexistenteException;
 import br.com.vr.miniautorizador.modelo.Cartao;
 import br.com.vr.miniautorizador.service.CartoesService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/cartoes")
@@ -29,11 +30,13 @@ public class CartoesController {
 	private CartoesService cartaoService;
 	
 	@GetMapping
+	@ApiOperation(value="Listar os cartões cadastrados")
 	public List<CartaoDto> lista() {
 		return cartaoService.listar();
 	}
 	
 	@PostMapping
+	@ApiOperation(value="Cadastrar um novo cartão")
 	public ResponseEntity<CartaoDto> cadastrar(@RequestBody @Validated CartaoForm form, UriComponentsBuilder uriBuilder){
 		Cartao cartao = form.converter();
 		try {
@@ -47,6 +50,7 @@ public class CartoesController {
 	}
 	
 	@GetMapping("/{numeroCartao}")
+	@ApiOperation(value="Obter saldo de um cartão")
 	public ResponseEntity<String> obterSaldo(@PathVariable String numeroCartao) {
 		try {
 			return ResponseEntity.ok(cartaoService.obterSaldo(numeroCartao));
