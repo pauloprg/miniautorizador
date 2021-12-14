@@ -13,6 +13,15 @@ public class CartaoForm {
 	@NotNull @NotEmpty
 	private String senha;
 	
+	public CartaoForm() {
+		
+	}
+	
+	public CartaoForm(String numeroCartao, String senha) {
+		this.numeroCartao = numeroCartao;
+		this.senha = senha;
+	}
+	
 	public String getNumeroCartao() {
 		return numeroCartao;
 	}

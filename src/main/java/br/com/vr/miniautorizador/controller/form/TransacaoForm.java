@@ -16,6 +16,15 @@ public class TransacaoForm {
 	
 	private BigDecimal valor;
 
+	public TransacaoForm() {
+    }
+
+    public TransacaoForm(String numeroCartao, String senhaCartao, BigDecimal valor) {
+        this.numeroCartao = numeroCartao;
+        this.senhaCartao = senhaCartao;
+        this.valor = valor;
+    }
+    
 	public String getNumeroCartao() {
 		return numeroCartao;
 	}
